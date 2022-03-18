@@ -43,22 +43,22 @@ router.delete("/:id", async (req, res) => {
   }
 });
 // like a post
-// router.put("/like/:id", async (req, res) => {
-//   try {
-//     const post = Post.findById(req.params.id);
-//     if (!post.likes.includes(req.body.userId)) {
-//       post.likes.push(req.body.userId);
-//       await post.save();
-//       res.status(200).json({ message: "post liked" });
-//     } else {
-//       post.likes.pull(req.body.userId);
-//       await post.save();
-//       res.status(200).json({ message: "post unliked" });
-//     }
-//   } catch (err) {
-//     res.status(400).json(err);
-//   }
-// });
+router.put("/:id/like", async (req, res) => {
+  try {
+    const post = Post.findById(req.params.id);
+    if (!post.likes.includes(req.body.userId)) {
+      post.likes.push(req.body.userId);
+      await post.save();
+      res.status(200).json({ message: "post liked" });
+    } else {
+      post.likes.pull(req.body.userId);
+      await post.save();
+      res.status(200).json({ message: "post unliked" });
+    }
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
 // get a post
 router.get("/:id", async (req, res) => {
